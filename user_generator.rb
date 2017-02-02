@@ -85,15 +85,24 @@ errorForOne = (errors.to_f*count.to_f)/count.to_f
 
 cities = File.readlines(region+'_cities.txt')
 streets= File.readlines(region+'_streets.txt')
-names = File.readlines(region+'_name_m.txt')
-surnames = File.readlines(region+'_surname_m.txt')
+names_m = File.readlines(region+'_name_m.txt')
+names_f = File.readlines(region+'_name_f.txt')
+surnames_m = File.readlines(region+'_surname_m.txt')
+surnames_f = File.readlines(region+'_surname_f.txt')
 numbers = File.readlines(region+'_numbers.txt')
+gender = ["male", "female"]
 i=0
 err = 0
 loop do
     i+=1
-    a=surnames[rand(surnames.size)].chomp
-    b=names[rand(names.size)].chomp
+    g=gender[rand(gender.size)].chomp
+    if g == "male"
+      a=surnames_m[rand(surnames_m.size)].chomp
+      b=names_m[rand(names_m.size)].chomp
+    elsif g == "female"
+      a=surnames_f[rand(surnames_f.size)].chomp
+      b=names_f[rand(names_f.size)].chomp
+    end
     c=streets[rand(streets.size)].chomp
     d=(rand(200)+1).to_s
     e=(rand(500)+1).to_s
