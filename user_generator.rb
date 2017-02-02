@@ -46,33 +46,39 @@ def changeError(s)
 end
 
 class First
-oops=0
+invaild_params = Array.new
 region='ru'
 count=1
 errors=0
 check = false
+
 if ARGV.length==3 || ARGV.length==2
   if ["en.US","en.GB","ru.RU","by.BY"].include?(ARGV[0])
   region = (ARGV[0][3]+ARGV[0][4]).downcase
   if "en"==(ARGV[0][0]+ARGV[0][1]).downcase
     check=true
   end
-else
-  oops+=1
-end
-  if ARGV[1].to_i>0 && ARGV[1].to_i<10000001
+  else
+    invaild_params.push("lang.Region")
+  end
+
+  if ARGV[1].to_i>0 && ARGV[1].to_i<10000001 
     count = ARGV[1].to_i
   else
-    oops+=1
+    invaild_params.push("userCount")
   end
-  if ARGV[2].to_f > 0
+  if ARGV[2].to_f > 0 
   errors = ARGV[2].to_f
     end
-else
-  oops+=1
-end
-if(oops>0)
-  puts "Not a valid parameters ([lang.Region][userCount][errorsCount])"
+  else
+    invaild_params.push("errorsCount")
+  end
+
+if(invaild_params.any?)
+  puts "Not a valid parameters: "
+  invaild_params.each do 
+    |param| puts param
+  end
   exit(0)
 end
 errorForOne = (errors.to_f*count.to_f)/count.to_f
